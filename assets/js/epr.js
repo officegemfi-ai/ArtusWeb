@@ -3871,13 +3871,23 @@ try {
   const PAL = ['#22CFA0', '#14C7A8', '#1BBFCB', '#01AEE2', '#0B8FD8', '#0B6BC0', '#0B4FA0', '#0B3F8F'];
   const NS = 'http://www.w3.org/2000/svg';
   let midStrand = null, paths = [], samples = [], total = 0, startY = 0, endY = 1, raf = 0, cur = 0, target = 0, last = 0;
-  const box = sel => { const el = main.querySelector(sel); if (!el) return null; const r = el.getBoundingClientRect(), m = main.getBoundingClientRect(); return { t: r.top - m.top, b: r.bottom - m.top, l: r.left - m.left, r: r.right - m.left }; };
+  // Blocks are measured by their layout position (offsets), so the reveal-on-scroll lift of 18px doesn't skew the
+  // route; the panel blocks come from the tab that is showing.
+  const box = (sel, scope = main) => {
+    const el = scope.querySelector(sel); if (!el || !el.offsetParent) return null;
+    let t = 0, l = 0, e = el;
+    while (e && e !== main) { t += e.offsetTop; l += e.offsetLeft; e = e.offsetParent; }
+    if (e !== main) { const r = el.getBoundingClientRect(), m = main.getBoundingClientRect(); return { t: r.top - m.top, b: r.bottom - m.top, l: r.left - m.left, r: r.right - m.left }; }
+    return { t, b: t + el.offsetHeight, l, r: l + el.offsetWidth };
+  };
+  const panel = () => main.querySelector(`.ep-panel[data-ep-panel="${document.documentElement.getAttribute('data-ep-tab') === 'espr' ? 'espr' : 'epr'}"]`) || main;
   function build() {
     g.textContent = ''; paths = [];
     if (small.matches) { svg.style.display = 'none'; return; } svg.style.display = '';
     const W = main.clientWidth, H = main.scrollHeight;
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('width', W); svg.setAttribute('height', H);
-    const hero = box('.ep-hero'), cards = box('.ep-cards'), eu = box('.ep-eu'), de = box('.ep-de'), rh = box('.ep-regs__head'), regs = box('.ep-regs'), cta = box('.ep-cta');
+    const P = panel();
+    const hero = box('.ep-hero'), cards = box('.ep-cards', P), eu = box('.ep-eu', P), de = box('.ep-de', P), rh = box('.ep-regs__head', P), regs = box('.ep-regs', P), cta = box('.ep-cta');
     if (!hero || !cards || !eu || !de || !rh || !regs || !cta) return;
     const shellL = cards.l, shellR = cards.r, L = Math.max(14, shellL * .5), R = W - Math.max(14, (W - shellR) * .5);
     const g1 = (eu.b + de.t) / 2, g2 = (de.b + rh.t) / 2, g3 = (regs.b + cta.t) / 2;
@@ -3887,7 +3897,7 @@ try {
     const wave = document.querySelector('.ep-hero__wave');
     const ribbon = wave ? wave.getBoundingClientRect().height * .19 : 56;
     const wV = Math.max(24, Math.min(ribbon, Math.min(L, shellL - L) * 2 - 24));      // in the margins
-    const note = box('.ep-note'), endTop = Math.max(regs.b, note ? note.b : 0), gEnd = (endTop + cta.t) / 2;   // below the sources note
+    const note = box('.ep-note', P), endTop = Math.max(regs.b, note ? note.b : 0), gEnd = (endTop + cta.t) / 2;   // below the sources note
     const wH = Math.max(18, Math.min(wV, Math.min(de.t - eu.b, rh.t - de.b, cta.t - endTop) - 24));   // over the column
     // Below the hero the band tucks behind the hero's lower edge (only its lower strands show above the cards),
     // runs left, then rounds the corner into the margin at full width before it reaches the cards' column.
@@ -3990,7 +4000,38 @@ try {
   const onScroll = () => { if (!paths.length) return; measure(); if (rm.matches) { cur = total; apply(total); return; } if (!raf) raf = requestAnimationFrame(tick); };
   addEventListener('scroll', onScroll, { passive: true });
   let rt = 0; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 150); });
+  addEventListener('ep:tab', () => requestAnimationFrame(build));
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(build); else addEventListener('load', build);
   addEventListener('load', build);
+})();
+} catch (e) { setTimeout(() => { throw e; }); }
+
+try {
+/* Artus EPR page · Textile EPR / ESPR tabs. A one-line script in the head already picked the tab from the address
+   (#espr opens ESPR) before the first paint; this wires the buttons, the arrow keys and the address bar. */
+(() => {
+  'use strict';
+  const root = document.documentElement, tabs = [...document.querySelectorAll('.ep-tabs [role="tab"]')];
+  if (!tabs.length) return;
+  const fromHash = () => (/^#espr/.test(location.hash) ? 'espr' : location.hash === '#epr' ? 'epr' : null);
+  function show(name, push) {
+    name = name === 'espr' ? 'espr' : 'epr';
+    const changed = root.getAttribute('data-ep-tab') !== name;
+    root.setAttribute('data-ep-tab', name);
+    tabs.forEach(t => { const on = t.getAttribute('aria-controls') === name; t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; });
+    if (push) history.replaceState(history.state, '', name === 'espr' ? '#espr' : location.pathname + location.search);
+    if (changed) dispatchEvent(new CustomEvent('ep:tab', { detail: name }));
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => show(t.getAttribute('aria-controls'), true));
+    t.addEventListener('keydown', e => {
+      const k = e.key, n = tabs.length;
+      const to = k === 'ArrowRight' || k === 'ArrowDown' ? (i + 1) % n : k === 'ArrowLeft' || k === 'ArrowUp' ? (i + n - 1) % n : k === 'Home' ? 0 : k === 'End' ? n - 1 : -1;
+      if (to < 0) return;
+      e.preventDefault(); tabs[to].focus(); show(tabs[to].getAttribute('aria-controls'), true);
+    });
+  });
+  addEventListener('hashchange', () => { const h = fromHash(); if (h) show(h, false); });
+  show(fromHash() || root.getAttribute('data-ep-tab') || 'epr', false);
 })();
 } catch (e) { setTimeout(() => { throw e; }); }
