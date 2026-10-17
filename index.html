@@ -1865,16 +1865,16 @@ html.js .x-cmp.rv{opacity:1;transform:none}
 .x-mk{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin-top:18px;border-top:1px solid var(--x-line)}
 .x-mk__col{padding:28px 22px 6px;border-left:1px solid var(--x-line)}
 .x-mk__col:first-child{border-left:0;padding-left:0}
-.x-mk__share{margin:0;font:600 clamp(38px,3.3vw,54px)/1 var(--x-disp);letter-spacing:-.035em;color:var(--x-ink)}
-.x-mk__col h3{margin:12px 0 0;font:600 12.5px/1.3 var(--x-text);letter-spacing:.14em;text-transform:uppercase;color:var(--x-deep)}
-.x-mk__bar{display:block;height:4px;margin:16px 0 22px;border-radius:4px;background:#EDF1F6;overflow:hidden}
-.x-mk__bar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#22CFA0,#01AEE2 55%,#0B3F8F);transform-origin:left center;transform:scaleX(0);transition:transform 1.3s cubic-bezier(.2,.7,.2,1)}
-.x-mk.is-in .x-mk__bar i,html:not(.js) .x-mk__bar i{transform:scaleX(1)}
-.x-mk__col:nth-child(2) .x-mk__bar i{transition-delay:.08s}.x-mk__col:nth-child(3) .x-mk__bar i{transition-delay:.16s}.x-mk__col:nth-child(4) .x-mk__bar i{transition-delay:.24s}.x-mk__col:nth-child(5) .x-mk__bar i{transition-delay:.32s}.x-mk__col:nth-child(6) .x-mk__bar i{transition-delay:.4s}
+.x-mk__num{margin:0;font:600 clamp(40px,3.4vw,56px)/1 var(--x-disp);letter-spacing:-.04em;color:var(--x-ink)}
+.x-mk__col h3{margin:12px 0 24px;font:400 italic clamp(21px,1.65vw,26px)/1.08 'Instrument Serif',Georgia,'Times New Roman',serif;letter-spacing:-.005em;color:var(--x-deep);transition:color .3s ease}
+
+
+
+
 .x-mk ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
 .x-mk li{font-size:15px;line-height:1.35;color:var(--x-muted)}
 .x-mk__note{margin:26px 0 0;font-size:13px;color:var(--x-soft)}
-@media(prefers-reduced-motion:reduce){.x-mk__bar i{transition:none;transform:scaleX(1)}}
+
 @media(max-width:1060px){.x-mk{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:12px}.x-mk__col:nth-child(4){border-left:0;padding-left:0}}
 @media(max-width:620px){.x-mk{grid-template-columns:repeat(2,minmax(0,1fr))}.x-mk__col{padding:22px 16px 4px}.x-mk__col:nth-child(odd){border-left:0;padding-left:0}.x-mk__col:nth-child(4){border-left:1px solid var(--x-line);padding-left:16px}.x-mk li{font-size:14px}}
 
@@ -2572,8 +2572,8 @@ html.js .x-about__photo.rv{transform:none}
           <div class="x-markets__intro"><p class="x-kicker rv">Partner network</p><h2 class="x-h2 x-markets__title rv d1" id="markets-title">45 countries.<em>Only sorted textiles with full commercial value.</em></h2>
           <p class="x-lead rv d2">Every lot is graded at an Artus hub first. What moves on is sorted textiles with full commercial value, sold through partners in 45 countries on five continents.</p></div>
         </div>
-        <p class="x-mk__label rv">Share by region</p>
-        <div class="x-mk rv"><div class="x-mk__col"><p class="x-mk__share">11%</p><h3>Europe West</h3><span class="x-mk__bar" aria-hidden="true"><i style="width:31.4%"></i></span><ul><li>Austria</li><li>Belgium</li><li>Denmark</li><li>United Kingdom</li><li>France</li><li>Netherlands</li><li>Italy</li><li>Portugal</li><li>Spain</li><li>Switzerland</li></ul></div><div class="x-mk__col"><p class="x-mk__share">15%</p><h3>Europe East</h3><span class="x-mk__bar" aria-hidden="true"><i style="width:42.9%"></i></span><ul><li>Bulgaria</li><li>Czechia</li><li>Estonia</li><li>Georgia</li><li>Latvia</li><li>Lithuania</li><li>Poland</li><li>Russia</li><li>Ukraine</li><li>Hungary</li><li>Croatia</li></ul></div><div class="x-mk__col"><p class="x-mk__share">25%</p><h3>Middle East</h3><span class="x-mk__bar" aria-hidden="true"><i style="width:71.4%"></i></span><ul><li>Iraq</li><li>Lebanon</li><li>Turkey</li><li>United Arab Emirates*</li></ul></div><div class="x-mk__col"><p class="x-mk__share">35%</p><h3>Africa</h3><span class="x-mk__bar" aria-hidden="true"><i style="width:100.0%"></i></span><ul><li>Angola</li><li>Congo</li><li>Gabon</li><li>Ghana</li><li>Kenya</li><li>Malawi</li><li>Mali</li><li>Morocco</li><li>Mauritania</li><li>Mozambique</li><li>Sierra Leone</li><li>Tanzania</li><li>Zambia</li></ul></div><div class="x-mk__col"><p class="x-mk__share">11%</p><h3>Americas</h3><span class="x-mk__bar" aria-hidden="true"><i style="width:31.4%"></i></span><ul><li>Chile</li><li>Bolivia</li><li>United States</li></ul></div><div class="x-mk__col"><p class="x-mk__share">2%</p><h3>Asia</h3><span class="x-mk__bar" aria-hidden="true"><i style="width:5.7%"></i></span><ul><li>Japan</li><li>Malaysia</li><li>Kazakhstan</li><li>Uzbekistan</li></ul></div></div>
+        <p class="x-mk__label rv">Partner countries by region</p>
+        <div class="x-mk rv"><div class="x-mk__col"><p class="x-mk__num">10</p><h3>Europe West</h3><ul><li>Austria</li><li>Belgium</li><li>Denmark</li><li>United Kingdom</li><li>France</li><li>Netherlands</li><li>Italy</li><li>Portugal</li><li>Spain</li><li>Switzerland</li></ul></div><div class="x-mk__col"><p class="x-mk__num">11</p><h3>Europe East</h3><ul><li>Bulgaria</li><li>Czechia</li><li>Estonia</li><li>Georgia</li><li>Latvia</li><li>Lithuania</li><li>Poland</li><li>Russia</li><li>Ukraine</li><li>Hungary</li><li>Croatia</li></ul></div><div class="x-mk__col"><p class="x-mk__num">4</p><h3>Middle East</h3><ul><li>Iraq</li><li>Lebanon</li><li>Turkey</li><li>United Arab Emirates*</li></ul></div><div class="x-mk__col"><p class="x-mk__num">13</p><h3>Africa</h3><ul><li>Angola</li><li>Congo</li><li>Gabon</li><li>Ghana</li><li>Kenya</li><li>Malawi</li><li>Mali</li><li>Morocco</li><li>Mauritania</li><li>Mozambique</li><li>Sierra Leone</li><li>Tanzania</li><li>Zambia</li></ul></div><div class="x-mk__col"><p class="x-mk__num">3</p><h3>Americas</h3><ul><li>Chile</li><li>Bolivia</li><li>United States</li></ul></div><div class="x-mk__col"><p class="x-mk__num">4</p><h3>Asia</h3><ul><li>Japan</li><li>Malaysia</li><li>Kazakhstan</li><li>Uzbekistan</li></ul></div></div>
         <p class="x-mk__note">* United Arab Emirates: free-zone only.</p>
       </div>
     </section>
