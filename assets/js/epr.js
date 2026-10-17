@@ -3881,17 +3881,82 @@ try {
     if (!hero || !cards || !eu || !de || !rh || !regs || !cta) return;
     const shellL = cards.l, shellR = cards.r, L = Math.max(14, shellL * .5), R = W - Math.max(14, (W - shellR) * .5);
     const g1 = (eu.b + de.t) / 2, g2 = (de.b + rh.t) / 2, g3 = (regs.b + cta.t) / 2;
-    const P = o => {                                           // the route, shifted a little per strand
-      const x = v => v + o, y = v => v + o * .5;
-      return `M${x(W * .64)} ${y(hero.b - 120)} C${x(W * .5)} ${y(hero.b + 10)} ${x(L)} ${y(hero.b - 20)} ${x(L)} ${y(cards.t + 60)}`
-        + ` L${x(L)} ${y(g1 - 70)} C${x(L)} ${y(g1)} ${x(W * .5)} ${y(g1)} ${x(W * .5)} ${y(g1)} C${x(R)} ${y(g1)} ${x(R)} ${y(g1)} ${x(R)} ${y(g1 + 70)}`
-        + ` L${x(R)} ${y(g2 - 70)} C${x(R)} ${y(g2)} ${x(W * .5)} ${y(g2)} ${x(W * .5)} ${y(g2)} C${x(L)} ${y(g2)} ${x(L)} ${y(g2)} ${x(L)} ${y(g2 + 70)}`
-        + ` L${x(L)} ${y(g3 - 60)} C${x(L)} ${y(g3 + 30)} ${x(W * .5)} ${y(g3 - 10)} ${x(W * .5)} ${y(cta.t + 90)}`;
+    // How wide the band is: as wide as the banner ribbon where it leaves the hero (about a fifth of the ribbon
+    // image's height) wherever it runs down the side margins, and only as wide as the gaps allow wherever it
+    // passes over the page column, so it never runs under the cards and blocks.
+    const wave = document.querySelector('.ep-hero__wave');
+    const ribbon = wave ? wave.getBoundingClientRect().height * .19 : 56;
+    const wV = Math.max(24, Math.min(ribbon, Math.min(L, shellL - L) * 2 - 24));      // in the margins
+    const note = box('.ep-note'), endTop = Math.max(regs.b, note ? note.b : 0), gEnd = (endTop + cta.t) / 2;   // below the sources note
+    const wH = Math.max(18, Math.min(wV, Math.min(de.t - eu.b, rh.t - de.b, cta.t - endTop) - 24));   // over the column
+    // Below the hero the band tucks behind the hero's lower edge (only its lower strands show above the cards),
+    // runs left, then rounds the corner into the margin at full width before it reaches the cards' column.
+    const ys = Math.min(hero.b - 5, cards.t - 10 - wV / 2), hv = wV / 2;
+    const r = Math.max(hv + 24, Math.min(shellL - L - 12, hv * 2)), kr = r * .5523;
+    const head0 = `M${W * .64} ${ys - 110} C${W * .56} ${ys} ${W * .46} ${ys} ${Math.max(W * .4, L + r + 40)} ${ys}`
+      + ` L${L + r} ${ys} C${L + r - kr} ${ys} ${L} ${ys + r - kr} ${L} ${ys + r}`;
+    const leg = Math.max(70, Math.min(wV * .9, (g2 - g1) / 2 - 30));                 // a wider band turns more gently
+    const route = head0 + ` L${L} ${Math.max(ys + r, g1 - leg)}`
+      + ` L${L} ${g1 - leg} C${L} ${g1} ${W * .5} ${g1} ${W * .5} ${g1} C${R} ${g1} ${R} ${g1} ${R} ${g1 + leg}`
+      + ` L${R} ${g2 - leg} C${R} ${g2} ${W * .5} ${g2} ${W * .5} ${g2} C${L} ${g2} ${L} ${g2} ${L} ${g2 + leg}`
+      + ` L${L} ${gEnd - Math.max(60, leg * .85)} C${L} ${gEnd + 30} ${W * .5} ${gEnd - 10} ${W * .5} ${cta.t + 90}`;
+    const a0 = shellL - 12, b0 = shellR + 12, T = Math.max(24, Math.min(90, a0 - L));
+    const column = x => {                                    // 0 out in the margins, 1 over the page column
+      if (x >= a0 && x <= b0) return 1;
+      const t = x < a0 ? (x - (a0 - T)) / T : (b0 + T - x) / T;
+      return t <= 0 ? 0 : t * t * (3 - 2 * t);
     };
-    const N = 13;
+    // walk the route, and at each step note which way is "across" and how wide the band should be there
+    const guide = document.createElementNS(NS, 'path'), first = document.createElementNS(NS, 'path');
+    guide.setAttribute('d', route); first.setAttribute('d', head0); g.append(guide, first);
+    const len = guide.getTotalLength(), s1 = first.getTotalLength(), STEP = 3, n = Math.ceil(len / STEP);
+    first.remove();
+    const pts = [];
+    for (let k = 0; k <= n; k++) { const q = guide.getPointAtLength(len * k / n); pts.push([q.x, q.y]); }
+    guide.remove();
+    const nx = [], ny = [], hw = [];
+    for (let k = 0; k <= n; k++) {
+      const p0 = pts[Math.max(0, k - 2)], p1 = pts[Math.min(n, k + 2)];
+      let tx = p1[0] - p0[0], ty = p1[1] - p0[1]; const d = Math.hypot(tx, ty) || 1; tx /= d; ty /= d;
+      nx.push(-ty); ny.push(tx);
+      // full width only once it runs straight down a margin; narrow over the column and while turning
+      hw.push(len * k / n <= s1 ? wV / 2 : (wH + (wV - wH) * (1 - column(pts[k][0])) * ty * ty) / 2);
+    }
+    // The band narrows on its way down a margin before it turns across the column, and widens again only
+    // after it has turned back into a margin: narrow stretches are first extended along the route, then eased.
+    const win = Math.round(Math.min(160, Math.max(60, wV * 1.2)) / STEP), at = k => hw[Math.max(0, Math.min(n, k))];
+    const ext = [], half = [];
+    for (let k = 0; k <= n; k++) { let m = Infinity; for (let j = k - win; j <= k + win; j++) m = Math.min(m, at(j)); ext.push(m); }
+    for (let k = 0; k <= n; k++) {
+      let acc = 0, c = 0;
+      for (let j = Math.max(0, k - win); j <= Math.min(n, k + win); j++) { acc += ext[j]; c++; }
+      half.push(acc / c);
+    }
+    const simplify = (P, eps) => {                                                      // drop points on straight runs
+      const keep = new Uint8Array(P.length); keep[0] = keep[P.length - 1] = 1;
+      const stack = [[0, P.length - 1]];
+      while (stack.length) {
+        const [i0, i1] = stack.pop(), [ax, ay] = P[i0], [bx, by] = P[i1], dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy || 1;
+        let idx = -1, max = eps;
+        for (let i = i0 + 1; i < i1; i++) {
+          const t = ((P[i][0] - ax) * dx + (P[i][1] - ay) * dy) / l2, e = Math.hypot(P[i][0] - ax - t * dx, P[i][1] - ay - t * dy);
+          if (e > max) { max = e; idx = i; }
+        }
+        if (idx >= 0) { keep[idx] = 1; stack.push([i0, idx], [idx, i1]); }
+      }
+      return P.filter((_, i) => keep[i]);
+    };
+    const N = Math.max(13, Math.min(27, 2 * Math.round(wV / 14) + 1));                 // about 7 px apart at full width
     for (let i = 0; i < N; i++) {
-      const o = (i - (N - 1) / 2) * 4.6, p = document.createElementNS(NS, 'path');
-      p.setAttribute('d', P(o)); p.setAttribute('fill', 'none'); p.setAttribute('stroke', PAL[Math.round(i / (N - 1) * (PAL.length - 1))]);
+      const f = i / (N - 1) - .5, line = [];
+      for (let k = 0; k <= n; k++) {
+        const o = f * 2 * half[k], x = pts[k][0] + nx[k] * o, y = pts[k][1] + ny[k] * o, prev = line[line.length - 1];
+        if (prev && (x - prev[0]) * ny[k] - (y - prev[1]) * nx[k] <= 0) continue;     // would fold back inside a bend
+        line.push([x, y]);
+      }
+      const p = document.createElementNS(NS, 'path');
+      p.setAttribute('d', 'M' + simplify(line, .3).map(([x, y]) => x.toFixed(1) + ' ' + y.toFixed(1)).join(' L'));
+      p.setAttribute('fill', 'none'); p.setAttribute('stroke', PAL[Math.round(i / (N - 1) * (PAL.length - 1))]);
       p.setAttribute('stroke-width', i === (N - 1) / 2 ? 2 : 1.3); p.setAttribute('stroke-linecap', 'round'); p.setAttribute('opacity', .86);
       g.appendChild(p); paths.push(p);
     }
