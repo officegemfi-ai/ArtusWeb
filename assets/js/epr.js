@@ -3860,8 +3860,9 @@ uniform float uTime; uniform float uGlint; varying float vFlow; varying float vP
 } catch (e) { setTimeout(() => { throw e; }); }
 
 try {
-/* Artus EPR page · a fibre thread woven down the page as you scroll: it leaves the hero, runs down the margins,
-   crosses between the blocks and ends in the closing band. A small light leads the strand that is being woven. */
+/* Artus EPR page · a ribbon of fibres that flows out from under the banner and down the left margin as you scroll.
+   It sways gently where the margin is wide, never crosses the page column, and slips into the closing band at the
+   end. A small light leads the part that is being drawn. */
 (() => {
   'use strict';
   const main = document.querySelector('.ep-main'), svg = document.querySelector('.ep-thread__svg');
@@ -3870,9 +3871,9 @@ try {
   const rm = matchMedia('(prefers-reduced-motion: reduce)'), small = matchMedia('(max-width: 760px)');
   const PAL = ['#22CFA0', '#14C7A8', '#1BBFCB', '#01AEE2', '#0B8FD8', '#0B6BC0', '#0B4FA0', '#0B3F8F'];
   const NS = 'http://www.w3.org/2000/svg';
-  let midStrand = null, paths = [], samples = [], total = 0, startY = 0, endY = 1, raf = 0, cur = 0, target = 0, last = 0;
-  // Blocks are measured by their layout position (offsets), so the reveal-on-scroll lift of 18px doesn't skew the
-  // route; the panel blocks come from the tab that is showing.
+  let midStrand = null, paths = [], samples = [], total = 0, raf = 0, cur = 0, target = 0, last = 0;
+  // Blocks are measured by their layout position (offsets), so the reveal-on-scroll lift doesn't skew anything;
+  // the panel blocks come from the tab that is showing.
   const box = (sel, scope = main) => {
     const el = scope.querySelector(sel); if (!el || !el.offsetParent) return null;
     let t = 0, l = 0, e = el;
@@ -3881,115 +3882,84 @@ try {
     return { t, b: t + el.offsetHeight, l, r: l + el.offsetWidth };
   };
   const panel = () => main.querySelector(`.ep-panel[data-ep-panel="${document.documentElement.getAttribute('data-ep-tab') === 'espr' ? 'espr' : 'epr'}"]`) || main;
+  const ease = t => (t <= 0 ? 0 : t >= 1 ? 1 : t * t * (3 - 2 * t));
+  function hide() { g.textContent = ''; paths = []; total = 0; svg.style.display = 'none'; }
   function build() {
     g.textContent = ''; paths = [];
-    if (small.matches) { svg.style.display = 'none'; return; } svg.style.display = '';
+    const P = panel(), hero = box('.ep-hero'), cards = box('.ep-cards', P), regs = box('.ep-regs', P), note = box('.ep-note', P), cta = box('.ep-cta');
+    if (small.matches || !hero || !cards || !cta) return hide();
     const W = main.clientWidth, H = main.scrollHeight;
+    const m = cards.l, room = m - 16;                  // the free strip left of the page column: 6px from the window edge, 10px from the column
+    if (room < 22) return hide();
+    svg.style.display = '';
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('width', W); svg.setAttribute('height', H);
-    const P = panel();
-    const hero = box('.ep-hero'), cards = box('.ep-cards', P), eu = box('.ep-eu', P), de = box('.ep-de', P), rh = box('.ep-regs__head', P), regs = box('.ep-regs', P), cta = box('.ep-cta');
-    if (!hero || !cards || !eu || !de || !rh || !regs || !cta) return;
-    const shellL = cards.l, shellR = cards.r, L = Math.max(14, shellL * .5), R = W - Math.max(14, (W - shellR) * .5);
-    const g1 = (eu.b + de.t) / 2, g2 = (de.b + rh.t) / 2, g3 = (regs.b + cta.t) / 2;
-    // How wide the band is: as wide as the banner ribbon where it leaves the hero (about a fifth of the ribbon
-    // image's height) wherever it runs down the side margins, and only as wide as the gaps allow wherever it
-    // passes over the page column, so it never runs under the cards and blocks.
+    // As wide as the banner ribbon (about a fifth of the ribbon image's height) wherever the margin has the room.
     const wave = document.querySelector('.ep-hero__wave');
-    const ribbon = wave ? wave.getBoundingClientRect().height * .19 : 56;
-    const wV = Math.max(24, Math.min(ribbon, Math.min(L, shellL - L) * 2 - 24));      // in the margins
-    const note = box('.ep-note', P), endTop = Math.max(regs.b, note ? note.b : 0), gEnd = (endTop + cta.t) / 2;   // below the sources note
-    const wH = Math.max(18, Math.min(wV, Math.min(de.t - eu.b, rh.t - de.b, cta.t - endTop) - 24));   // over the column
-    // Below the hero the band tucks behind the hero's lower edge (only its lower strands show above the cards),
-    // runs left, then rounds the corner into the margin at full width before it reaches the cards' column.
-    const ys = Math.min(hero.b - 5, cards.t - 10 - wV / 2), hv = wV / 2;
-    const r = Math.max(hv + 24, Math.min(shellL - L - 12, hv * 2)), kr = r * .5523;
-    const head0 = `M${W * .64} ${ys - 110} C${W * .56} ${ys} ${W * .46} ${ys} ${Math.max(W * .4, L + r + 40)} ${ys}`
-      + ` L${L + r} ${ys} C${L + r - kr} ${ys} ${L} ${ys + r - kr} ${L} ${ys + r}`;
-    const leg = Math.max(70, Math.min(wV * .9, (g2 - g1) / 2 - 30));                 // a wider band turns more gently
-    const route = head0 + ` L${L} ${Math.max(ys + r, g1 - leg)}`
-      + ` L${L} ${g1 - leg} C${L} ${g1} ${W * .5} ${g1} ${W * .5} ${g1} C${R} ${g1} ${R} ${g1} ${R} ${g1 + leg}`
-      + ` L${R} ${g2 - leg} C${R} ${g2} ${W * .5} ${g2} ${W * .5} ${g2} C${L} ${g2} ${L} ${g2} ${L} ${g2 + leg}`
-      + ` L${L} ${gEnd - Math.max(60, leg * .85)} C${L} ${gEnd + 30} ${W * .5} ${gEnd - 10} ${W * .5} ${cta.t + 90}`;
-    const a0 = shellL - 12, b0 = shellR + 12, T = Math.max(24, Math.min(90, a0 - L));
-    const column = x => {                                    // 0 out in the margins, 1 over the page column
-      if (x >= a0 && x <= b0) return 1;
-      const t = x < a0 ? (x - (a0 - T)) / T : (b0 + T - x) / T;
-      return t <= 0 ? 0 : t * t * (3 - 2 * t);
-    };
-    // walk the route, and at each step note which way is "across" and how wide the band should be there
-    const guide = document.createElementNS(NS, 'path'), first = document.createElementNS(NS, 'path');
-    guide.setAttribute('d', route); first.setAttribute('d', head0); g.append(guide, first);
-    const len = guide.getTotalLength(), s1 = first.getTotalLength(), STEP = 3, n = Math.ceil(len / STEP);
-    first.remove();
-    const pts = [];
+    const banner = wave ? wave.getBoundingClientRect().height * .19 : 56;
+    const w = Math.max(18, Math.min(banner, room * .62)), amp = Math.max(0, Math.min((room - w) / 2, m * .22, 80)), cx = 6 + room / 2;
+    // The centre line: out from under the hero, straight down at first, then slow waves (one about every 1100px)
+    // that ease in and out, and finally one soft bend that carries it into the closing band.
+    const y0 = hero.b - 40, endTop = Math.max(regs ? regs.b : 0, note ? note.b : 0);
+    const yB = Math.max(y0 + 320, endTop + 14), yE = cta.t + 190, span = yB - y0;
+    const per = span / Math.max(1, Math.round(span / 1100));
+    const xAt = y => { const t = (y - y0) / span; return cx + amp * ease(t / .22) * ease((1 - t) / .22) * Math.sin(2 * Math.PI * (y - y0) / per); };
+    let route = `M${cx.toFixed(1)} ${y0.toFixed(1)}`;
+    for (let y = y0 + 4; y < yB; y += 4) route += ` L${xAt(y).toFixed(1)} ${y.toFixed(1)}`;
+    const reach = Math.min(W * .26, 260), drop = yE - yB;
+    route += ` L${cx.toFixed(1)} ${yB.toFixed(1)} C${cx.toFixed(1)} ${(yB + drop * .5).toFixed(1)} ${(cx + reach * .35).toFixed(1)} ${(yB + drop * .8).toFixed(1)} ${(cx + reach).toFixed(1)} ${yE.toFixed(1)}`;
+    // walk the route at even steps and note which way is "across" at each step
+    const guide = document.createElementNS(NS, 'path'); guide.setAttribute('d', route); g.append(guide);
+    const len = guide.getTotalLength(), STEP = 3, n = Math.ceil(len / STEP), pts = [];
     for (let k = 0; k <= n; k++) { const q = guide.getPointAtLength(len * k / n); pts.push([q.x, q.y]); }
     guide.remove();
-    const nx = [], ny = [], hw = [];
+    const nx = [], ny = [];
     for (let k = 0; k <= n; k++) {
-      const p0 = pts[Math.max(0, k - 2)], p1 = pts[Math.min(n, k + 2)];
+      const p0 = pts[Math.max(0, k - 3)], p1 = pts[Math.min(n, k + 3)];
       let tx = p1[0] - p0[0], ty = p1[1] - p0[1]; const d = Math.hypot(tx, ty) || 1; tx /= d; ty /= d;
       nx.push(-ty); ny.push(tx);
-      // full width only once it runs straight down a margin; narrow over the column and while turning
-      hw.push(len * k / n <= s1 ? wV / 2 : (wH + (wV - wH) * (1 - column(pts[k][0])) * ty * ty) / 2);
     }
-    // The band narrows on its way down a margin before it turns across the column, and widens again only
-    // after it has turned back into a margin: narrow stretches are first extended along the route, then eased.
-    const win = Math.round(Math.min(160, Math.max(60, wV * 1.2)) / STEP), at = k => hw[Math.max(0, Math.min(n, k))];
-    const ext = [], half = [];
-    for (let k = 0; k <= n; k++) { let m = Infinity; for (let j = k - win; j <= k + win; j++) m = Math.min(m, at(j)); ext.push(m); }
-    for (let k = 0; k <= n; k++) {
-      let acc = 0, c = 0;
-      for (let j = Math.max(0, k - win); j <= Math.min(n, k + win); j++) { acc += ext[j]; c++; }
-      half.push(acc / c);
-    }
-    const simplify = (P, eps) => {                                                      // drop points on straight runs
-      const keep = new Uint8Array(P.length); keep[0] = keep[P.length - 1] = 1;
-      const stack = [[0, P.length - 1]];
+    const simplify = (Q, eps) => {                                                      // drop points on straight runs
+      const keep = new Uint8Array(Q.length); keep[0] = keep[Q.length - 1] = 1;
+      const stack = [[0, Q.length - 1]];
       while (stack.length) {
-        const [i0, i1] = stack.pop(), [ax, ay] = P[i0], [bx, by] = P[i1], dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy || 1;
+        const [i0, i1] = stack.pop(), [ax, ay] = Q[i0], [bx, by] = Q[i1], dx = bx - ax, dy = by - ay, l2 = dx * dx + dy * dy || 1;
         let idx = -1, max = eps;
         for (let i = i0 + 1; i < i1; i++) {
-          const t = ((P[i][0] - ax) * dx + (P[i][1] - ay) * dy) / l2, e = Math.hypot(P[i][0] - ax - t * dx, P[i][1] - ay - t * dy);
+          const t = ((Q[i][0] - ax) * dx + (Q[i][1] - ay) * dy) / l2, e = Math.hypot(Q[i][0] - ax - t * dx, Q[i][1] - ay - t * dy);
           if (e > max) { max = e; idx = i; }
         }
         if (idx >= 0) { keep[idx] = 1; stack.push([i0, idx], [idx, i1]); }
       }
-      return P.filter((_, i) => keep[i]);
+      return Q.filter((_, i) => keep[i]);
     };
-    const N = Math.max(13, Math.min(27, 2 * Math.round(wV / 14) + 1));                 // about 7 px apart at full width
+    const N = Math.max(11, Math.min(25, 2 * Math.round(w / 12) + 1));                  // about 6 px apart
     for (let i = 0; i < N; i++) {
-      const f = i / (N - 1) - .5, line = [];
-      for (let k = 0; k <= n; k++) {
-        const o = f * 2 * half[k], x = pts[k][0] + nx[k] * o, y = pts[k][1] + ny[k] * o, prev = line[line.length - 1];
-        if (prev && (x - prev[0]) * ny[k] - (y - prev[1]) * nx[k] <= 0) continue;     // would fold back inside a bend
-        line.push([x, y]);
-      }
+      const o = (i / (N - 1) - .5) * w, line = [];
+      for (let k = 0; k <= n; k++) line.push([pts[k][0] + nx[k] * o, pts[k][1] + ny[k] * o]);
       const p = document.createElementNS(NS, 'path');
-      p.setAttribute('d', 'M' + simplify(line, .3).map(([x, y]) => x.toFixed(1) + ' ' + y.toFixed(1)).join(' L'));
+      p.setAttribute('d', 'M' + simplify(line, .25).map(([x, y]) => x.toFixed(1) + ' ' + y.toFixed(1)).join(' L'));
       p.setAttribute('fill', 'none'); p.setAttribute('stroke', PAL[Math.round(i / (N - 1) * (PAL.length - 1))]);
       p.setAttribute('stroke-width', i === (N - 1) / 2 ? 2 : 1.3); p.setAttribute('stroke-linecap', 'round'); p.setAttribute('opacity', .86);
       g.appendChild(p); paths.push(p);
     }
-
     const midP = paths[(N - 1) / 2]; midStrand = midP; total = midP.getTotalLength();
     paths.forEach(p => { const l = p.getTotalLength(); p.style.strokeDasharray = `${l} ${l}`; p.dataset.len = l; });
-    samples = []; const mid = midP;
-    for (let k = 0; k <= 600; k++) { const pt = mid.getPointAtLength(total * k / 600); samples.push([pt.y, total * k / 600, pt.x]); }
-    startY = samples[0][0]; endY = samples[samples.length - 1][0];
+    samples = [];
+    for (let k = 0; k <= 600; k++) { const pt = midP.getPointAtLength(total * k / 600); samples.push([pt.y, total * k / 600]); }
     measure(); cur = target; apply(cur);
   }
-  function lengthAtY(y) {                                       // the path only ever moves down, so y finds the length
+  function lengthAtY(y) {                                       // the ribbon only ever moves down, so y finds the length
     let lo = 0, hi = samples.length - 1;
     if (y <= samples[0][0]) return 0; if (y >= samples[hi][0]) return total;
-    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (samples[m][0] < y) lo = m; else hi = m; }
+    while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (samples[mid][0] < y) lo = mid; else hi = mid; }
     const a = samples[lo], b = samples[hi], k = (y - a[0]) / Math.max(1e-6, b[0] - a[0]);
     return a[1] + (b[1] - a[1]) * k;
   }
-  function measure() { const m = main.getBoundingClientRect(); target = Math.min(total, lengthAtY(innerHeight * .72 - m.top)); }
+  function measure() { if (!total) return; const r = main.getBoundingClientRect(); target = Math.min(total, lengthAtY(innerHeight * .72 - r.top)); }
   function apply(len) {
     const f = total ? len / total : 0;
     paths.forEach(p => { const l = +p.dataset.len; p.style.strokeDashoffset = (l * (1 - f)).toFixed(1); });
-    if (len > 2 && len < total - 2) { const pt = midStrand.getPointAtLength(len); head.setAttribute('cx', pt.x); head.setAttribute('cy', pt.y); head.style.opacity = 1; }
+    if (midStrand && len > 2 && len < total - 2) { const pt = midStrand.getPointAtLength(len); head.setAttribute('cx', pt.x); head.setAttribute('cy', pt.y); head.style.opacity = 1; }
     else head.style.opacity = 0;
   }
   function tick(now) {
