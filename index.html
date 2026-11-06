@@ -204,7 +204,7 @@ button,input,select,textarea{font-size:inherit}button,a{-webkit-tap-highlight-co
 .modal-card{width:min(520px,calc(100vw - 32px));position:relative;background:#fff;border:1px solid var(--line);border-radius:24px;padding:40px}
 .modal-close{display:grid;place-items:center;position:absolute;right:16px;top:16px;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#f6f9fb;font-size:var(--body);line-height:1;z-index:1}
 .modal-icon{margin-bottom:20px;width:var(--icon-small);height:var(--icon-small)}.modal-card>.eyebrow{padding-right:24px}.modal-card h2{font-size:var(--heading);line-height:1.12;margin-bottom:18px}.modal-card>p:not(.eyebrow){font-size:var(--body);color:var(--muted);line-height:1.65}
-.modal-form{display:grid;gap:16px;margin-top:24px}.modal-form label{font-size:var(--caption);font-weight:650;display:block}.modal-form input{font-size:var(--body);font-weight:400;margin-top:6px;display:block;width:100%;height:48px;border:1px solid #ccd8e2;border-radius:10px;background:#fff;color:var(--navy);padding:0 14px}.modal-form .form-note{font-size:var(--caption);color:var(--muted);font-weight:400;line-height:1.6}.modal-success{padding:20px;border-radius:12px;background:#edf9f4;color:#15775c!important;margin-top:20px}.modal-cta{margin-top:24px}
+.modal-form{display:grid;gap:16px;margin-top:24px}.modal-form label{font-size:var(--caption);font-weight:650;display:block}.modal-form input{font-size:var(--body);font-weight:400;margin-top:6px;display:block;width:100%;height:48px;border:1px solid #ccd8e2;border-radius:10px;background:#fff;color:var(--navy);padding:0 14px}.modal-form .form-note{font-size:var(--caption);color:var(--muted);font-weight:400;line-height:1.6}.modal-success{padding:20px;border-radius:12px;background:#edf9f4;color:#15775c!important;margin-top:20px;line-height:1.6}.modal-success span{display:block;margin-top:6px}.modal-success a,.modal-form .form-note a,.modal-form .x-cform__consent a{color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}.modal-form .x-cform__consent a{color:var(--x-link)}.modal-cta{margin-top:24px}
 /* Responsive layouts use the same components, without globally shrinking text or icons. */
 @media(min-width:1600px){:root{--shell:1320px}}
 @media(max-width:1200px){
@@ -996,7 +996,7 @@ html.js .rv.d1{transition-delay:.08s}html.js .rv.d2{transition-delay:.16s}html.j
 .x-footer{background:#040E24;color:rgb(255 255 255 / 72%);padding:clamp(64px,7vw,96px) 0 32px;font-size:14.5px}
 .x-footer__top{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));gap:40px}
 .x-footer__brand img{width:150px;height:auto}
-.x-footer__brand p{margin:20px 0 0;max-width:300px;line-height:1.65}
+.x-footer__brand p{margin:20px 0 0;max-width:300px;line-height:1.65}.x-footer__addr{margin:18px 0 0;font-style:normal;font-size:13.5px;line-height:1.7;color:rgb(255 255 255 / 56%)}.x-footer .x-footer__addr a{color:rgb(255 255 255 / 86%)}.x-footer .x-footer__addr a:hover{color:#fff}
 .x-footer h4{margin:0 0 18px;font:600 12px/1.4 var(--x-text);letter-spacing:.16em;text-transform:uppercase;color:#fff}
 .x-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
 .x-footer a,.x-footer button{color:inherit;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;transition:color .2s}
@@ -2311,7 +2311,6 @@ html.js .x-about__photo.rv{transform:none}
         <nav class="x-util__left" aria-label="Audiences"><b>Solutions for</b><a href="#industries">Brands &amp; retailers</a><a href="#industries">Producers</a><a href="#industries">Municipalities</a><a href="#industries">Recyclers</a></nav>
         <nav class="x-util__nav" aria-label="Corporate">
           <a href="#join">Investors</a><a href="#insights">Newsroom</a><a href="#join">Careers</a><button type="button" data-open-contact>Contact</button>
-          <button class="x-lang" type="button" data-soon="This prototype has one edition: Global, in English. Regional sites can be added before launch." data-soon-title="Region &amp; language"><span class="x-ico " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.6 3.9 5.6 3.9 9s-1.3 6.4-3.9 9c-2.6-2.6-3.9-5.6-3.9-9S9.4 5.6 12 3z"/></svg></span>Global · EN</button>
         </nav>
       </div>
     </div>
@@ -2679,7 +2678,6 @@ html.js .x-about__photo.rv{transform:none}
       <div class="x-shell">
         <div class="x-head">
           <div><p class="x-kicker rv">Insights</p><h2 class="x-h2 rv d1" id="insights-title">Regulation, operations and the data behind circularity.</h2></div>
-          <p class="x-lead rv d2 x-head__end"><a class="x-link" href="#insights" data-soon="The insights library will live here. Articles are drafted for launch." data-soon-title="Insights">All insights <span class="x-ico " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></p>
         </div>
         <div class="x-join__grid">
           <a class="x-post rv d1" href="https://environment.ec.europa.eu/news/ban-destruction-unsold-clothes-and-shoes-enters-application-2026-07-17_en" target="_blank" rel="noopener"><div class="x-card__img"><img src="https://images.unsplash.com/photo-1744059510375-b42f562cda63?auto=format&fit=crop&q=80&w=1400" srcset="https://images.unsplash.com/photo-1744059510375-b42f562cda63?auto=format&fit=crop&q=80&w=640 640w, https://images.unsplash.com/photo-1744059510375-b42f562cda63?auto=format&fit=crop&q=80&w=1000 1000w, https://images.unsplash.com/photo-1744059510375-b42f562cda63?auto=format&fit=crop&q=80&w=1400 1400w, https://images.unsplash.com/photo-1744059510375-b42f562cda63?auto=format&fit=crop&q=80&w=2000 2000w" sizes="(max-width: 720px) 100vw, 33vw" alt="Crate of collected textiles" loading="lazy" decoding="async" /></div><div class="x-card__body"><p class="x-post__meta"><b>Regulation</b><span>European Commission</span></p><h3>The EU ban on destroying unsold textiles, explained</h3><p style="margin:0;font-size:15px;line-height:1.6;color:var(--x-muted)">What the ESPR destruction ban covers, who it applies to and what producers must now document.</p></div></a><a class="x-post rv d2" href="https://calrecycle.ca.gov/epr/textiles/" target="_blank" rel="noopener"><div class="x-card__img"><img src="https://images.unsplash.com/photo-1782398138711-72c37bce4b38?auto=format&fit=crop&q=80&w=1400" srcset="https://images.unsplash.com/photo-1782398138711-72c37bce4b38?auto=format&fit=crop&q=80&w=640 640w, https://images.unsplash.com/photo-1782398138711-72c37bce4b38?auto=format&fit=crop&q=80&w=1000 1000w, https://images.unsplash.com/photo-1782398138711-72c37bce4b38?auto=format&fit=crop&q=80&w=1400 1400w, https://images.unsplash.com/photo-1782398138711-72c37bce4b38?auto=format&fit=crop&q=80&w=2000 2000w" sizes="(max-width: 720px) 100vw, 33vw" alt="Aerial view of a busy container port" loading="lazy" decoding="async" /></div><div class="x-card__body"><p class="x-post__meta"><b>Regulation</b><span>CalRecycle</span></p><h3>California SB 707: what producers need to know</h3><p style="margin:0;font-size:15px;line-height:1.6;color:var(--x-muted)">The first US textile EPR law, the producer responsibility organization and the obligations ahead.</p></div></a><a class="x-post rv d3" href="https://www.eea.europa.eu/en/analysis/publications/management-of-used-and-waste-textiles-in-europes-circular-economy" target="_blank" rel="noopener"><div class="x-card__img"><img src="https://images.unsplash.com/photo-1606053929013-311c13f97b5f?auto=format&fit=crop&q=80&w=1400" srcset="https://images.unsplash.com/photo-1606053929013-311c13f97b5f?auto=format&fit=crop&q=80&w=640 640w, https://images.unsplash.com/photo-1606053929013-311c13f97b5f?auto=format&fit=crop&q=80&w=1000 1000w, https://images.unsplash.com/photo-1606053929013-311c13f97b5f?auto=format&fit=crop&q=80&w=1400 1400w, https://images.unsplash.com/photo-1606053929013-311c13f97b5f?auto=format&fit=crop&q=80&w=2000 2000w" sizes="(max-width: 720px) 100vw, 33vw" alt="Clothing being graded on a sorting line" loading="lazy" decoding="async" /></div><div class="x-card__body"><p class="x-post__meta"><b>Operations</b><span>European Environment Agency</span></p><h3>Inside a grading line: how value is recovered</h3><p style="margin:0;font-size:15px;line-height:1.6;color:var(--x-muted)">How condition and composition grading decide the highest-value next use for every kilogram.</p></div></a>
@@ -2700,7 +2698,7 @@ html.js .x-about__photo.rv{transform:none}
   <footer class="x-footer">
     <div class="x-shell">
       <div class="x-footer__top">
-        <div class="x-footer__brand"><img src="assets/img/artus-logo-white.webp" alt="Artus Group" width="600" height="163" loading="lazy" decoding="async" /><p>The infrastructure for textile take-back, reuse, resale and recycling — operated at scale and recorded in artusNet.</p></div>
+        <div class="x-footer__brand"><img src="assets/img/artus-logo-white.webp" alt="Artus Group" width="600" height="163" loading="lazy" decoding="async" /><p>The infrastructure for textile take-back, reuse, resale and recycling — operated at scale and recorded in artusNet.</p><address class="x-footer__addr">ARTUS Trade House GmbH<br />Elly-Heuss-Knapp-Straße 7<br />23843 Bad Oldesloe, Germany<br /><a href="mailto:info@artus-tradehouse.com">info@artus-tradehouse.com</a></address></div>
         <div><h4>Solutions</h4><ul><li><a href="#solutions">Take-back</a></li><li><a href="tcycled.html">Tcycled app</a></li><li><a href="#solutions">Logistics</a></li><li><a href="#solutions">Traceability</a></li><li><a href="#solutions">Sorting</a></li><li><a href="#solutions">Resale</a></li><li><a href="#solutions">Reporting</a></li></ul></div>
         <div><h4>Industries</h4><ul><li><a href="#industries">Brands &amp; retailers</a></li><li><a href="#industries">Producers &amp; importers</a></li><li><a href="#industries">Municipalities</a></li><li><a href="#industries">Operators &amp; collectors</a></li><li><a href="#industries">Recommerce</a></li><li><a href="#industries">Recyclers</a></li></ul></div>
         <div><h4>Company</h4><ul><li><a href="#about">About Artus</a></li><li><a href="#markets">Global network</a></li><li><a href="#sustainability">Sustainability</a></li><li><a href="epr.html">EPR &amp; ESPR</a></li><li><a href="certificates.html">Certificates</a></li><li><a href="#join">Careers</a></li><li><a href="#join">Investors</a></li><li><button type="button" data-open-contact>Contact</button></li></ul></div>
@@ -2708,9 +2706,8 @@ html.js .x-about__photo.rv{transform:none}
       </div>
       <div class="x-footer__hubs"><span><b>Hamburg</b>Germany</span><span><b>Italy</b></span><span><b>United Kingdom</b></span><span><b>United States</b></span><span><b>Lomé</b>Togo</span><span><b>Iquique</b>Chile</span><span><b>Kandla</b>India</span><span><b>Jebel Ali</b>United Arab Emirates</span></div>
       <div class="x-footer__bottom">
-        <span>© 2026 Artus Invest. All rights reserved.</span>
-        <nav class="x-footer__legal footer-grid" aria-label="Legal"><a href="#">Privacy policy</a><a href="#">Terms of service</a><a href="#">Cookie policy</a><a href="#">Imprint</a><a href="#">Accessibility</a></nav>
-        <div class="x-social"><a href="#" data-soon="Add the company LinkedIn URL before launch." data-soon-title="LinkedIn" aria-label="Artus on LinkedIn"><span class="x-ico " aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></span></a></div>
+        <span>© 2026 ARTUS Trade House GmbH. All rights reserved.</span>
+        <nav class="x-footer__legal footer-grid" aria-label="Legal"><a href="imprint.html">Imprint</a><a href="privacy.html">Privacy policy</a></nav>
       </div>
       <p class="x-credit">Some photography via Unsplash. Hub illustration and fibre artwork are original Artus renders. Dashboard figures are illustrative.</p>
     </div>
@@ -2768,15 +2765,15 @@ html.js .x-about__photo.rv{transform:none}
           </div>
           <label for="contactMessage">Message<textarea id="contactMessage" name="message" rows="4" placeholder="Tell us about your program, the regions involved and anything else we should know."></textarea></label>
         </fieldset>
-        <label class="x-cform__consent"><input type="checkbox" name="consent" required /><span>I agree that Artus may contact me about this request.</span></label>
-        <p class="form-note">Prototype only. This form does not send or store your details.</p>
+        <label class="x-cform__consent"><input type="checkbox" name="consent" required /><span>I agree that Artus may contact me about this request. See our <a href="privacy.html" target="_blank" rel="noopener">privacy policy</a>.</span></label>
+        <p class="form-note">Your email app opens with this request filled in, ready to send. You can also write to <a href="mailto:info@artus-tradehouse.com">info@artus-tradehouse.com</a>.</p>
         <button class="button button--navy x-cform__send" type="submit">Send request <span aria-hidden="true">→</span></button>
       </form>
-      <p class="modal-success" data-modal-success role="status" hidden>Preview complete. No request was sent. The production form needs a CRM or email connection.</p>
+      <p class="modal-success" data-modal-success role="status" hidden><strong>Almost done.</strong> Your email app should now show your request. Press send there and it reaches our team.<span>Nothing opened? Write to <a href="mailto:info@artus-tradehouse.com">info@artus-tradehouse.com</a>.</span></p>
       <button class="button button--navy modal-cta" type="button" data-modal-cta hidden>Discuss your program <span aria-hidden="true">→</span></button>
     </div>
   </dialog>
 
-  <script defer src="assets/js/index.js?v=a303dd2608"></script>
+  <script defer src="assets/js/index.js?v=b9caf10fdb"></script>
 </body>
 </html>
