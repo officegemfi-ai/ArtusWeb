@@ -2261,13 +2261,20 @@ html.js .x-cmp.rv{opacity:1;transform:none}
 .lg-hero .ce-hero__lead{max-width:540px;text-shadow:0 0 18px rgb(8 28 70 / 80%),0 0 3px rgb(8 28 70 / 50%)}
 @media(max-width:1060px){.lg-hero .ce-hero__loop{opacity:.3;width:90vw;right:-30%}}
 @media(prefers-reduced-motion:reduce){.ce-hero__loop,.ce-hero__wave{animation:none}}
+/* language switch between the English and German privacy policy */
+.lg-lang{display:inline-flex;gap:4px;margin:30px 0 0;padding:4px;border-radius:999px;background:rgb(255 255 255 / 10%);border:1px solid rgb(255 255 255 / 24%)}
+.lg-lang a{display:inline-flex;align-items:center;min-height:40px;padding:0 20px;border-radius:999px;font:600 14px/1 var(--x-text);color:rgb(255 255 255 / 90%);text-decoration:none;transition:background .2s,color .2s}
+.lg-lang a:hover{background:rgb(255 255 255 / 14%);color:#fff}
+.lg-lang a[aria-current]{background:#fff;color:var(--x-deep)}
 .lg-sec{position:relative;padding:clamp(48px,5.5vw,88px) 0 clamp(72px,8vw,120px)}
 .lg-page a.lg-a,.lg-page .lg-text a{color:var(--x-link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .lg-page a.lg-a:hover,.lg-page .lg-text a:hover{color:var(--x-deep)}
+.lg-page a.lg-a,.lg-nw{white-space:nowrap}
 /* imprint: English and German side by side */
 .lg-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,26px)}
 .lg-card{position:relative;overflow:hidden;padding:clamp(28px,3vw,44px);border-radius:26px;background:#fff;border:1px solid var(--x-line);box-shadow:0 34px 64px -54px rgb(11 63 143 / 50%)}
 .lg-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,#22CFA0,#01AEE2 55%,#0B3F8F)}
+.lg-card{scroll-margin-top:30px}
 .lg-card h2{margin:22px 0 0;font:600 clamp(30px,2.6vw,40px)/1.04 var(--x-disp);letter-spacing:-.035em;color:var(--x-ink)}
 .lg-basis{margin:8px 0 0;font-size:14.5px;line-height:1.5;color:var(--x-muted)}
 .lg-dl{margin:28px 0 0}
@@ -2297,6 +2304,9 @@ html.js .x-cmp.rv{opacity:1;transform:none}
 .lg-basis-line{display:block;margin-top:14px;padding-left:14px;border-left:2px solid #22CFA0;font-size:15px;line-height:1.6;color:var(--x-muted)}
 .lg-text .lg-object{padding:clamp(24px,2.6vw,34px);border-radius:22px;border:1px solid var(--x-line2);background:#fff;box-shadow:0 30px 60px -52px rgb(11 63 143 / 55%)}
 .lg-date{margin-top:clamp(40px,4.4vw,56px)!important;font-size:14px!important;color:var(--x-muted)!important}
+/* long German words break at syllables instead of running past the edge on small screens */
+.lg-text,.lg-sum{overflow-wrap:break-word}
+html[lang="de"] .lg-text p,html[lang="de"] .lg-text li,html[lang="de"] .lg-sum li,html[lang="de"] .lg-basis-line{hyphens:auto}
 @media(max-width:1060px){.lg-cols,.lg-layout{grid-template-columns:1fr}.lg-aside{position:static;order:0}}
 @media(max-width:560px){.lg-dl>div{grid-template-columns:1fr;gap:4px}}
 </style>
@@ -2342,6 +2352,8 @@ html.js .x-cmp.rv{opacity:1;transform:none}
           </dl>
           <h3>Consumer dispute resolution</h3>
           <p class="lg-p">We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board.</p>
+          <h3>Privacy</h3>
+          <p class="lg-p">How we handle personal data is set out in our <a class="lg-a" href="privacy.html">privacy policy</a>.</p>
         </article>
         <article class="lg-card ep-rv" id="impressum" lang="de" aria-labelledby="impressum-title">
           <span class="ce-tag"><b>DE</b>Deutsch</span>
@@ -2357,6 +2369,8 @@ html.js .x-cmp.rv{opacity:1;transform:none}
           </dl>
           <h3>Verbraucherstreitbeilegung</h3>
           <p class="lg-p">Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+          <h3>Datenschutz</h3>
+          <p class="lg-p">Wie wir mit personenbezogenen Daten umgehen, steht in unserer <a class="lg-a" href="datenschutz.html">Datenschutzerklärung</a>.</p>
         </article>
       </div>
     </section>
