@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://artusgroup.net/sitemap.xml
+Sitemap: https://www.trekstone.net/sitemap.xml
