@@ -382,25 +382,27 @@ try {
   const light = hero.querySelector('.x-hlight'), copy = hero.querySelector('.x-hero__in'), clocks = hero.querySelector('.x-clocks');
   const split = hero.querySelector('.x-hsplit'); if (!vid || !split || !light) return;
   const L = split.querySelector('.x-hsplit__l'), R = split.querySelector('.x-hsplit__r'), lead = split.querySelector('.x-hsplit__lead');
-  const video = vid.querySelector('video');
-  // two inner frames that show the same video zoomed out, like windows stacked into depth (collapsed state only)
+  const pic = vid.querySelector('.x-hvid__v');
+  // two inner frames that show the same picture zoomed out, like windows stacked into depth (collapsed state only)
   const stack = document.createElement('div'); stack.className = 'x-hvid__stack'; stack.setAttribute('aria-hidden', 'true');
-  const layers = [0.075, 0.2].map(inset => {
+  const layers = [].map(inset => {
     const el = document.createElement('div'); el.className = 'x-hvid__layer';
     const cv = document.createElement('canvas'); el.appendChild(cv); stack.appendChild(el);
     return { inset, el, cv, ctx: cv.getContext('2d'), w: 0, h: 0 };
   });
   vid.insertBefore(stack, shade);
   let poster = null;
-  if (video && video.poster) { poster = new Image(); poster.src = video.poster; }
+  if (pic && pic.tagName === 'IMG') poster = pic;
+  else if (pic && pic.poster) { poster = new Image(); poster.src = pic.poster; }
   let layerAlpha = 0, drawing = 0, lastFrameT = -1;
   function drawLayers() {
     drawing = 0;
     if (!on || layerAlpha <= 0.001) return;
-    const src = video && video.readyState >= 2 ? video : (poster && poster.complete ? poster : null);
+    const still = poster === pic;
+    const src = !still && pic && pic.readyState >= 2 ? pic : (poster && poster.complete && poster.naturalWidth ? poster : null);
     if (src) {
       const sw = src.videoWidth || src.naturalWidth, sh = src.videoHeight || src.naturalHeight;
-      const t = video ? video.currentTime : 0;
+      const t = pic && !still ? pic.currentTime : 0;
       if (sw && (t !== lastFrameT || src === poster)) {
         lastFrameT = t;
         for (const L of layers) {
@@ -410,7 +412,7 @@ try {
         }
       }
     }
-    drawing = requestAnimationFrame(drawLayers);
+    if (!(still && src)) drawing = requestAnimationFrame(drawLayers);   // a still picture is drawn once per call
   }
   const mq = matchMedia('(max-width: 900px)'), rm = matchMedia('(prefers-reduced-motion: reduce)');
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -418,9 +420,10 @@ try {
   const easeOut = x => 1 - Math.pow(1 - x, 3);
   const lerp = (a, b, t) => a + (b - a) * t;
   let on = false, g = null, target = 0, cur = 0, raf = 0, last = 0;
+  const PAN_FROM = 18;                 // matches the object-position of .x-hvid__v in the stylesheet
 
   function reset() {
-    [vid, shade, light, copy, clocks, L, R, lead, video].forEach(el => el && (el.style.cssText = ''));
+    [vid, shade, light, copy, clocks, L, R, lead, pic].forEach(el => el && (el.style.cssText = ''));
     split.style.opacity = '';
     layers.forEach(L => (L.el.style.cssText = '')); layerAlpha = 0;
   }
@@ -448,9 +451,9 @@ try {
     const c = ease(clamp(p / .72));
     const l = lerp(0, (W - cw) / 2, c), t = lerp(0, cy - ch / 2, c), b = lerp(0, H - (cy + ch / 2), c), rad = 0;
     vid.style.clipPath = `inset(${t.toFixed(2)}px ${l.toFixed(2)}px ${b.toFixed(2)}px ${l.toFixed(2)}px round ${rad.toFixed(2)}px)`;
-    if (video) video.style.transform = `scale(${lerp(1, .88, c).toFixed(4)})`;
+    if (pic) { pic.style.transform = `scale(${lerp(1, .88, c).toFixed(4)})`; pic.style.objectPosition = `${lerp(PAN_FROM, 50, c).toFixed(2)}% 42%`; }
     shade.style.opacity = (1 - c * .9).toFixed(4);
-    layerAlpha = ease(clamp((c - .78) / .22));
+    layerAlpha = layers.length ? ease(clamp((c - .78) / .22)) : 0;
     const cardW = W - 2 * l, grow = cardW / cw;
     layers.forEach((L, i) => {
       L.el.style.opacity = layerAlpha.toFixed(4);
@@ -490,30 +493,6 @@ try {
   addEventListener('resize', () => { if (on || !(mq.matches || rm.matches)) layout(); });
   if (mq.addEventListener) { mq.addEventListener('change', layout); rm.addEventListener('change', layout); }
   layout();
-})();
-} catch (e) { setTimeout(() => { throw e; }); }
-
-try {
-/* Hero background video, streamed from assets/video/hero.mp4.
-   Stays on the still frame for people who turn off motion or whose connection is set to save data. */
-(() => {
-  'use strict';
-  const v = document.querySelector('[data-hero-video]'); if (!v) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;          // keep the poster frame
-  const net = navigator.connection;
-  if (net && (net.saveData || /(^|-)2g$/.test(net.effectiveType || ''))) return; // same on data saver or a very slow line
-  // The still frame shows first and the video loads once the rest of the page has; phones held upright get a
-  // lighter, upright cut of the same clip (on a phone only the middle of the wide video is on screen anyway).
-  const start = () => { try {
-    v.src = matchMedia('(max-width: 600px) and (orientation: portrait)').matches ? 'assets/video/hero-m.mp4' : 'assets/video/hero.mp4';
-    v.muted = true;
-    const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
-    v.addEventListener('canplay', () => v.classList.add('is-ready'), { once: true });
-    // pause while the hero is off screen, resume when it comes back
-    if ('IntersectionObserver' in window) new IntersectionObserver(es => { es[0].isIntersecting ? play() : v.pause(); }, { threshold: 0.05 }).observe(v);
-    else play();
-  } catch (e) { /* the poster frame stays */ } };
-  if (document.readyState === 'complete') start(); else addEventListener('load', start, { once: true });
 })();
 } catch (e) { setTimeout(() => { throw e; }); }
 
