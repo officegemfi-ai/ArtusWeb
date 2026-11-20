@@ -1,0 +1,78 @@
+    <section class="fhero on-dark" aria-labelledby="page-title">
+      <div class="fhero__bg"><img src="assets/img/forest-1600.webp" srcset="assets/img/forest-800.webp 800w, assets/img/forest-1600.webp 1600w" sizes="100vw" alt="" width="1600" height="900" decoding="async" fetchpriority="high" /></div>
+      <div class="wrap">
+        <p class="eyebrow eyebrow--rule rv">Sustainability</p>
+        <h1 class="display display--md rv" style="--d:1" id="page-title">Sustainability relies on infrastructure, not slogans.</h1>
+        <p class="lead rv" style="--d:2">Every lot follows the waste hierarchy, and every outcome is documented.</p>
+      </div>
+    </section>
+
+    <section class="band" aria-labelledby="tiers-title">
+      <div class="wrap split">
+        <div class="split__side">
+          <p class="eyebrow rv">The waste hierarchy</p>
+          <h2 class="title rv" style="--d:1" id="tiers-title">Most preferred <em>first.</em></h2>
+          <p class="lead rv" style="--d:2">Product that can be worn is worn. Recycling is for what is left, not a way around the question.</p>
+        </div>
+        <ol class="tiers">
+          <li class="tier rv">{{hx:repeat}}<h3>Resale and reuse first</h3><p>Wearable product goes back to market through controlled, contracted channels.</p></li>
+          <li class="tier rv" style="--d:1">{{hx:donate}}<h3>Donation through vetted networks</h3><p>Wearable goods suited to donation reach vetted partners, with receipts kept on file.</p></li>
+          <li class="tier rv" style="--d:2">{{hx:recycle}}<h3>Certified recycling last</h3><p>What cannot be worn is recycled through certified partners: soles reground, textiles recovered.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="band band--mist" id="regulation" aria-labelledby="reg-title">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow rv">Why now</p><h2 class="title rv" style="--d:1" id="reg-title">Destroying excess is ending. <em>Proving where it goes is the new standard.</em></h2></div>
+          <p class="lead rv" style="--d:2">Three forces now apply to unsold footwear and apparel at the same time. Each asks the same question: where did the product go, and can you prove it?</p>
+        </div>
+        <div class="regs regs--light">
+          <article class="reg rv"><p class="reg__where">EU</p><p class="reg__when">From 19 July 2026</p><h3>A ban on destroying unsold goods</h3><p>Large companies may no longer destroy unsold apparel, clothing accessories or footwear placed on the EU market, and must disclose what they discard and why.</p></article>
+          <article class="reg rv" style="--d:1"><p class="reg__where">California</p><p class="reg__when">Phasing in from 2026</p><h3>Producer responsibility for textiles</h3><p>SB 707 makes producers of apparel and footwear sold in California responsible for collection, repair, reuse and recycling, through a state-approved program.</p></article>
+          <article class="reg rv" style="--d:2"><p class="reg__where">Reporting</p><p class="reg__when">Every year</p><h3>Disclosures that hold up</h3><p>ESRS E5 and GRI 306 ask what happens to products and materials. Figures that trace to source documents are the ones that survive assurance.</p></article>
+        </div>
+        <p class="note">A summary for orientation, not legal advice.</p>
+      </div>
+    </section>
+
+    <section class="band" id="reporting" aria-labelledby="proof-title">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow rv">Reporting</p><h2 class="title rv" style="--d:1" id="proof-title">Every pair, <em>traceable.</em></h2></div>
+          <p class="lead rv" style="--d:2">Clients log in to a read-only portal and see each lot reconcile to zero, with every figure traced to a verified document.</p>
+        </div>
+        <div class="proof">
+          <div class="tp rv" role="group" aria-label="TREKSTONE portal preview with sample data">
+            <div class="tp__bar"><span class="tp__brand">TREKSTONE portal</span><span>Client view · read-only</span><span class="tp__pill">Sample data</span></div>
+            <div class="tp__body">
+              <div class="tp__lot"><div><p class="tp__id">Lot TS-0000</p><p class="tp__name">Athletic footwear, mixed sizes</p></div><span class="tp__status">Reconciled</span></div>
+              <dl class="tp__kpis">
+                <div><dd>12,400</dd><dt>Received</dt></div>
+                <div><dd>9,860</dd><dt>Resold</dt></div>
+                <div><dd>1,240</dd><dt>Donated</dt></div>
+                <div><dd>1,300</dd><dt>Recycled</dt></div>
+              </dl>
+              <div class="tp__split" role="img" aria-label="Resold 79.5 percent, donated 10 percent, recycled 10.5 percent"><i class="is-resold" style="--w:79.5%"></i><i class="is-donated" style="--w:10%"></i><i class="is-recycled" style="--w:10.5%"></i></div>
+              <div class="tp__legend"><p><span><i class="is-resold"></i>Resold 79.5%</span><span><i class="is-donated"></i>Donated 10.0%</span><span><i class="is-recycled"></i>Recycled 10.5%</span></p><strong>Unaccounted: 0</strong></div>
+              <ul class="tp__docs">
+                <li><span>Bill of lading</span><b class="is-ok">Verified</b></li>
+                <li><span>Destination receipts · 14</span><b class="is-ok">Verified</b></li>
+                <li><span>Recycling certificate</span><b class="is-wait">Pending</b></li>
+              </ul>
+            </div>
+          </div>
+          <div class="rv" style="--d:1">
+            <ul class="points">
+              <li><strong>Chain of custody</strong><span>Partner, carrier, date and destination for every pair.</span></li>
+              <li><strong>Outcome ledger</strong><span>The resale, donation and recycling split, with recovery value.</span></li>
+              <li><strong>Certificates</strong><span>Destination and recycling certificates, filed with the lot.</span></li>
+              <li><strong>Live access</strong><span>Read-only visibility into every lot, in real time.</span></li>
+            </ul>
+            <div class="proof__cta"><a class="btn btn--ink" href="{{login}}">Client login</a></div>
+          </div>
+        </div>
+        <p class="callout rv"><strong>Measurement integrity.</strong> Diverted units and weight are reported as verified, primary figures. Recovery value and landfill avoidance are shown with their method, never as unverified totals.</p>
+      </div>
+    </section>

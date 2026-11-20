@@ -1,0 +1,266 @@
+    <section class="bhero on-dark" aria-labelledby="page-title">
+      <div class="wrap bhero__grid">
+        <div>
+          <p class="eyebrow eyebrow--rule rv">For buyers</p>
+          <h1 class="display display--md rv" style="--d:1" id="page-title">Branded overstock for vetted buyers.</h1>
+          <p class="lead rv" style="--d:2">Register your company once. When a lot matches your profile, we send you the offer, with the grade, the quantity and any resale conditions stated up front.</p>
+          <div class="btns rv" style="--d:3"><a class="btn btn--forest" href="#apply">Apply for buyer access</a><a class="btn btn--line-dark" href="#how">How it works</a></div>
+        </div>
+        <article class="offer rv" style="--d:2" aria-label="Example of an offer, with sample data">
+          <div class="offer__top">
+            <div><span class="offer__tag">Sample offer</span><p class="offer__id">Lot TS-0000</p><h2 class="offer__title">Athletic footwear, mixed sizes</h2></div>
+            {{grade:b:sm}}
+          </div>
+          <dl>
+            <div><dt>Grade</dt><dd>B · Minor imperfections</dd></div>
+            <div><dt>Quantity</dt><dd>2,400 pairs</dd></div>
+            <div><dt>Packing</dt><dd>Cartons on pallets</dd></div>
+            <div><dt>Location</dt><dd>United States</dd></div>
+          </dl>
+          <p class="offer__cond"><strong>Resale conditions</strong>Approved regions: Latin America, Middle East, Africa. Not for online marketplaces.</p>
+          <p class="offer__foot"><span>Price on request</span><span>Every offer states its conditions</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="band" id="how" aria-labelledby="how-title">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow rv">How it works</p><h2 class="title rv" style="--d:1" id="how-title">Apply once. <em>Offers follow.</em></h2></div>
+          <p class="lead rv" style="--d:2">We sell only to buyers we have reviewed. That is what lets brands release their excess to us, and what keeps the offers coming.</p>
+        </div>
+        <ol class="flow">
+          <li class="flow__step rv">{{hx:clipboard}}<h3>Apply</h3><p>Tell us about your company, what you buy and where you sell.</p></li>
+          <li class="flow__step rv" style="--d:1">{{hx:review}}<h3>Review</h3><p>We review every application and may ask for references or documents.</p></li>
+          <li class="flow__step rv" style="--d:2">{{hx:sign}}<h3>Agreement</h3><p>Approved buyers sign a buyer agreement that sets out the resale conditions.</p></li>
+          <li class="flow__step rv" style="--d:3">{{hx:send}}<h3>Offers</h3><p>When a lot matches your profile, we send you the offer.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="band band--flush-top">
+      <div class="wrap">
+        <div class="quote on-dark rv">
+          <div class="quote__text"><p class="eyebrow">What we offer</p><p class="title" style="margin-top:18px">Footwear, apparel and accessories, graded A to D.</p><p class="lead">Every offer states the grade, so you know what you are buying before you commit.</p>
+            <ul class="opts" style="margin-top:26px" aria-label="Grades"><li>{{grade:a:sm}}</li><li>{{grade:b:sm}}</li><li>{{grade:c:sm}}</li><li style="filter:invert(1)">{{grade:d:sm}}</li></ul>
+          </div>
+          <div class="ph"><img src="assets/img/rails-1400.webp" srcset="assets/img/rails-640.webp 640w, assets/img/rails-1000.webp 1000w, assets/img/rails-1400.webp 1400w" sizes="(max-width: 1060px) 100vw, 58vw" alt="Garments hanging on rails" width="1400" height="933" loading="lazy" decoding="async" /></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--mist" aria-labelledby="asks-title">
+      <div class="wrap">
+        <div class="head">
+          <div><p class="eyebrow rv">What we ask of every buyer</p><h2 class="title rv" style="--d:1" id="asks-title">The conditions <em>are part of the deal.</em></h2></div>
+          <p class="lead rv" style="--d:2">Brands release their excess because they trust where it will go. Every buyer helps keep that true.</p>
+        </div>
+        <div class="asks">
+          <article class="ask rv">{{hx:map}}<h3>Sell where the offer allows</h3><p>Each offer names the regions where the goods may be resold. Those limits are part of the deal.</p></article>
+          <article class="ask rv" style="--d:1">{{hx:store}}<h3>Use the agreed channels</h3><p>Some lots exclude certain channels, such as online marketplaces. The offer says so up front.</p></article>
+          <article class="ask rv" style="--d:2">{{hx:stamp}}<h3>Leave markings as supplied</h3><p>Where goods arrive NFR-marked or de-branded, they stay that way through resale.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="apply" aria-labelledby="apply-title">
+      <div class="wrap">
+        <div class="head head--stack">
+          <p class="eyebrow rv">Buyer sign-up</p>
+          <h2 class="title rv" style="--d:1" id="apply-title">Apply for buyer access.</h2>
+          <p class="lead rv" style="--d:2">It takes about five minutes. We review every application before sending offers.</p>
+        </div>
+        <div class="formcard rv">
+          <div class="formcard__head">
+            <ol class="prog" aria-label="Progress">
+              <li>Company</li><li>Contact</li><li>What you buy</li><li>Where you sell</li><li>Review</li>
+            </ol>
+          </div>
+          <form class="formcard__body" data-form="buyer" data-done="buyer-done" novalidate>
+            <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="company_website_confirm" tabindex="-1" autocomplete="off" /></label></div>
+
+            <fieldset class="fstep" data-step>
+              <h3>Your company</h3>
+              <p>Who we would be selling to.</p>
+              <div class="fgrid">
+                <div class="f" data-field data-label="Company"><label for="b-company">Company name</label><input id="b-company" name="company_name" type="text" autocomplete="organization" maxlength="160" required /><p class="f__err" hidden></p></div>
+                <div class="f" data-field data-label="Trading name"><label for="b-trading">Trading name <small>optional</small></label><input id="b-trading" name="trading_name" type="text" maxlength="160" /></div>
+                <div class="f" data-field data-label="Country"><label for="b-country">Country</label><select id="b-country" name="country" autocomplete="country-name" required>{{countries}}</select><p class="f__err" hidden></p></div>
+                <div class="f" data-field data-label="State or province"><label for="b-state">State or province <small>optional</small></label><input id="b-state" name="state_region" type="text" autocomplete="address-level1" maxlength="100" /></div>
+                <div class="f" data-field data-label="City"><label for="b-city">City</label><input id="b-city" name="city" type="text" autocomplete="address-level2" maxlength="100" required /><p class="f__err" hidden></p></div>
+                <div class="f" data-field data-label="Website"><label for="b-web">Website <small>optional</small></label><input id="b-web" name="website" type="text" inputmode="url" autocomplete="url" maxlength="200" placeholder="www.example.com" /></div>
+                <div class="f" data-field data-label="Years trading"><label for="b-years">Years trading <small>optional</small></label><select id="b-years" name="years_trading"><option value="" selected>Select</option><option>Less than 1 year</option><option>1 to 3 years</option><option>3 to 10 years</option><option>More than 10 years</option></select></div>
+                <div class="f" data-field data-label="Team size"><label for="b-size">Team size <small>optional</small></label><select id="b-size" name="team_size"><option value="" selected>Select</option><option>1 to 5</option><option>6 to 20</option><option>21 to 100</option><option>More than 100</option></select></div>
+                <fieldset class="f f--wide" data-field data-min="1" data-label="Type of business" data-msg="Choose at least one type of business.">
+                  <legend>Type of business</legend>
+                  <div class="opts">
+                    <label class="opt"><input type="checkbox" name="business_types[]" value="Wholesaler or distributor" /><span>Wholesaler or distributor</span></label>
+                    <label class="opt"><input type="checkbox" name="business_types[]" value="Off-price or discount retailer" /><span>Off-price or discount retailer</span></label>
+                    <label class="opt"><input type="checkbox" name="business_types[]" value="Independent retailer" /><span>Independent retailer</span></label>
+                    <label class="opt"><input type="checkbox" name="business_types[]" value="Online reseller" /><span>Online reseller</span></label>
+                    <label class="opt"><input type="checkbox" name="business_types[]" value="Exporter" /><span>Exporter</span></label>
+                    <label class="opt"><input type="checkbox" name="business_types[]" value="Donation partner" /><span>Donation partner</span></label>
+                    <label class="opt"><input type="checkbox" name="business_types[]" value="Recycler" /><span>Recycler</span></label>
+                    <label class="opt"><input type="checkbox" name="business_types[]" value="Other" /><span>Other</span></label>
+                  </div>
+                  <p class="f__err" hidden></p>
+                </fieldset>
+              </div>
+            </fieldset>
+
+            <fieldset class="fstep" data-step hidden>
+              <h3>Your contact details</h3>
+              <p>The person we should send offers to.</p>
+              <div class="fgrid">
+                <div class="f" data-field data-label="Name"><label for="b-name">Full name</label><input id="b-name" name="contact_name" type="text" autocomplete="name" maxlength="120" required /><p class="f__err" hidden></p></div>
+                <div class="f" data-field data-label="Job title"><label for="b-title">Job title</label><input id="b-title" name="job_title" type="text" autocomplete="organization-title" maxlength="120" required /><p class="f__err" hidden></p></div>
+                <div class="f" data-field data-label="Email"><label for="b-email">Work email</label><input id="b-email" name="email" type="email" autocomplete="email" maxlength="200" placeholder="name@company.com" required /><p class="f__err" hidden></p></div>
+                <div class="f" data-field data-label="Phone"><label for="b-phone">Phone</label><input id="b-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" placeholder="+1 555 000 0000" required /><p class="f__err" hidden></p></div>
+                <fieldset class="f f--wide" data-field data-label="Preferred contact">
+                  <legend>How should we reach you?</legend>
+                  <div class="opts">
+                    <label class="opt"><input type="radio" name="preferred_contact" value="Email" checked /><span>Email</span></label>
+                    <label class="opt"><input type="radio" name="preferred_contact" value="Phone" /><span>Phone</span></label>
+                    <label class="opt"><input type="radio" name="preferred_contact" value="WhatsApp" /><span>WhatsApp</span></label>
+                  </div>
+                </fieldset>
+              </div>
+            </fieldset>
+
+            <fieldset class="fstep" data-step hidden>
+              <h3>What you buy</h3>
+              <p>So the offers we send are the ones you can use.</p>
+              <div class="fgrid">
+                <fieldset class="f f--wide" data-field data-min="1" data-label="Categories" data-msg="Choose at least one category.">
+                  <legend>Categories</legend>
+                  <div class="opts">
+                    <label class="opt"><input type="checkbox" name="categories[]" value="Footwear" /><span>{{ic:shoe:ic--sm}}Footwear</span></label>
+                    <label class="opt"><input type="checkbox" name="categories[]" value="Apparel" /><span>{{ic:shirt:ic--sm}}Apparel</span></label>
+                    <label class="opt"><input type="checkbox" name="categories[]" value="Accessories" /><span>{{ic:bag:ic--sm}}Accessories</span></label>
+                  </div>
+                  <p class="f__err" hidden></p>
+                </fieldset>
+                <fieldset class="f f--wide" data-field data-label="Segments">
+                  <legend>Segments <small>optional</small></legend>
+                  <div class="opts">
+                    <label class="opt"><input type="checkbox" name="segments[]" value="Athletic" /><span>Athletic</span></label>
+                    <label class="opt"><input type="checkbox" name="segments[]" value="Casual and lifestyle" /><span>Casual and lifestyle</span></label>
+                    <label class="opt"><input type="checkbox" name="segments[]" value="Outdoor" /><span>Outdoor</span></label>
+                    <label class="opt"><input type="checkbox" name="segments[]" value="Fashion" /><span>Fashion</span></label>
+                    <label class="opt"><input type="checkbox" name="segments[]" value="Kids" /><span>Kids</span></label>
+                    <label class="opt"><input type="checkbox" name="segments[]" value="Workwear" /><span>Workwear</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="f f--wide" data-field data-min="1" data-label="Grades" data-msg="Choose at least one grade.">
+                  <legend>Grades you buy</legend>
+                  <div class="opts">
+                    <label class="opt opt--grade"><input type="checkbox" name="grades[]" value="A" /><span>{{grade:a:sm}}Retail-ready</span></label>
+                    <label class="opt opt--grade"><input type="checkbox" name="grades[]" value="B" /><span>{{grade:b:sm}}Minor imperfections</span></label>
+                    <label class="opt opt--grade"><input type="checkbox" name="grades[]" value="C" /><span>{{grade:c:sm}}Function over appearance</span></label>
+                    <label class="opt opt--grade"><input type="checkbox" name="grades[]" value="D" /><span>{{grade:d:sm}}Samples and specials</span></label>
+                  </div>
+                  <p class="f__err" hidden></p>
+                </fieldset>
+                <div class="f" data-field data-label="Typical order"><label for="b-order">Typical order size</label><select id="b-order" name="order_size" required><option value="" selected disabled>Select</option><option>Under 500 units</option><option>500 to 2,000 units</option><option>2,000 to 10,000 units</option><option>More than 10,000 units</option><option>Full container loads</option></select><p class="f__err" hidden></p></div>
+                <div class="f" data-field data-label="How often"><label for="b-freq">How often you buy <small>optional</small></label><select id="b-freq" name="frequency"><option value="" selected>Select</option><option>Monthly</option><option>Quarterly</option><option>A few times a year</option><option>When a suitable lot comes up</option></select></div>
+                <div class="f f--wide" data-field data-label="Looking for"><label for="b-want">What you look for <small>optional</small></label><textarea id="b-want" name="looking_for" maxlength="1000" placeholder="Brands, styles, sizes or price points"></textarea></div>
+              </div>
+            </fieldset>
+
+            <fieldset class="fstep" data-step hidden>
+              <h3>Where you sell</h3>
+              <p>Offers carry resale conditions, so we match lots to the places and channels you sell in.</p>
+              <div class="fgrid">
+                <fieldset class="f f--wide" data-field data-min="1" data-label="Regions" data-msg="Choose at least one region.">
+                  <legend>Regions you sell in</legend>
+                  <div class="opts">
+                    <label class="opt"><input type="checkbox" name="sell_regions[]" value="North America" /><span>North America</span></label>
+                    <label class="opt"><input type="checkbox" name="sell_regions[]" value="Latin America" /><span>Latin America</span></label>
+                    <label class="opt"><input type="checkbox" name="sell_regions[]" value="Europe" /><span>Europe</span></label>
+                    <label class="opt"><input type="checkbox" name="sell_regions[]" value="Middle East" /><span>Middle East</span></label>
+                    <label class="opt"><input type="checkbox" name="sell_regions[]" value="Africa" /><span>Africa</span></label>
+                    <label class="opt"><input type="checkbox" name="sell_regions[]" value="Asia Pacific" /><span>Asia Pacific</span></label>
+                  </div>
+                  <p class="f__err" hidden></p>
+                </fieldset>
+                <div class="f f--wide" data-field data-label="Main countries"><label for="b-countries">Main countries <small>optional</small></label><input id="b-countries" name="sell_countries" type="text" maxlength="300" placeholder="For example Mexico, Colombia, Chile" /></div>
+                <fieldset class="f f--wide" data-field data-min="1" data-label="Sales channels" data-msg="Choose at least one sales channel.">
+                  <legend>How you sell</legend>
+                  <div class="opts">
+                    <label class="opt"><input type="checkbox" name="channels[]" value="Own retail stores" /><span>Own retail stores</span></label>
+                    <label class="opt"><input type="checkbox" name="channels[]" value="Wholesale to retailers" /><span>Wholesale to retailers</span></label>
+                    <label class="opt"><input type="checkbox" name="channels[]" value="Own online store" /><span>Own online store</span></label>
+                    <label class="opt"><input type="checkbox" name="channels[]" value="Online marketplaces" /><span>Online marketplaces</span></label>
+                    <label class="opt"><input type="checkbox" name="channels[]" value="Live selling" /><span>Live selling</span></label>
+                    <label class="opt"><input type="checkbox" name="channels[]" value="Export" /><span>Export</span></label>
+                    <label class="opt"><input type="checkbox" name="channels[]" value="Other" /><span>Other</span></label>
+                  </div>
+                  <p class="f__err" hidden></p>
+                </fieldset>
+                <div class="f" data-field data-label="Platforms"><label for="b-platforms">Marketplaces or platforms <small>optional</small></label><input id="b-platforms" name="platforms" type="text" maxlength="300" placeholder="For example eBay, Whatnot, TikTok Shop" /></div>
+                <div class="f" data-field data-label="Ship to"><label for="b-ship">Where goods should ship to</label><input id="b-ship" name="ship_to" type="text" maxlength="200" placeholder="City and country, or port" required /><p class="f__err" hidden></p></div>
+                <fieldset class="f" data-field data-label="Own freight">
+                  <legend>Do you arrange your own freight? <small>optional</small></legend>
+                  <div class="opts">
+                    <label class="opt"><input type="radio" name="own_freight" value="Yes" /><span>Yes</span></label>
+                    <label class="opt"><input type="radio" name="own_freight" value="No" /><span>No</span></label>
+                    <label class="opt"><input type="radio" name="own_freight" value="Sometimes" /><span>Sometimes</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="f" data-field data-label="Resale licence">
+                  <legend>Do you hold a resale or business licence? <small>optional</small></legend>
+                  <div class="opts">
+                    <label class="opt"><input type="radio" name="resale_licence" value="Yes" /><span>Yes</span></label>
+                    <label class="opt"><input type="radio" name="resale_licence" value="No" /><span>No</span></label>
+                    <label class="opt"><input type="radio" name="resale_licence" value="In progress" /><span>In progress</span></label>
+                  </div>
+                  <p class="f__hint">We do not ask for licence or tax numbers here. If we need a copy, we will ask you directly.</p>
+                </fieldset>
+              </div>
+            </fieldset>
+
+            <fieldset class="fstep" data-step hidden>
+              <h3>Review and send</h3>
+              <p>Check your details. Use Back to change anything.</p>
+              <dl class="review" data-review></dl>
+              <div class="fgrid" style="margin-bottom:22px">
+                <div class="f f--wide" data-field><label for="b-notes">Anything else we should know? <small>optional</small></label><textarea id="b-notes" name="notes" maxlength="1500"></textarea></div>
+              </div>
+              <label class="agree" data-field><input type="checkbox" name="agree_accurate" value="yes" required /><span>These details are accurate, and I am authorised to apply on behalf of this company.</span></label>
+              <label class="agree" data-field><input type="checkbox" name="agree_conditions" value="yes" required /><span>I understand that offers can carry resale conditions, such as approved regions and channels, and that buying requires a signed buyer agreement.</span></label>
+              <label class="agree" data-field><input type="checkbox" name="agree_terms" value="yes" required /><span>I agree to the <a href="terms.html">Terms &amp; Conditions</a> and the <a href="privacy.html">Privacy Policy</a>, and to TREKSTONE contacting me about this application and with offers.</span></label>
+            </fieldset>
+
+            <p class="fmsg" role="alert" hidden></p>
+            <div class="fnav">
+              <button class="btn btn--line" type="button" data-prev hidden>Back</button>
+              <span class="fnav__note" aria-live="polite"></span>
+              <button class="btn btn--forest" type="button" data-next>Continue</button>
+              <button class="btn btn--forest" type="submit" data-submit hidden>Send application</button>
+            </div>
+          </form>
+          <div class="done" id="buyer-done" hidden>
+            {{hx:badge:lg}}
+            <h3>Application received.</h3>
+            <p>Thank you. We review every buyer before sending offers, and we will be in touch at the email address you gave. If we need anything more, we will ask.</p>
+            <p class="done__ref" data-ref hidden></p>
+            <p class="preview-note" data-preview-note hidden>This is the preview: nothing was sent or saved. On the live site, the application goes to the TREKSTONE buyer list.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band band--mist band--tight" aria-labelledby="faq-title">
+      <div class="wrap split">
+        <div class="split__side">
+          <p class="eyebrow rv">Questions</p>
+          <h2 class="title title--sm rv" style="--d:1" id="faq-title">Before you apply.</h2>
+        </div>
+        <div class="faq rv">
+          <details><summary>Who can apply?</summary><p>Companies that buy footwear, apparel or accessories for resale: wholesalers, distributors, retailers, online resellers and exporters. We also work with donation and recycling partners.</p></details>
+          <details><summary>What happens after I apply?</summary><p>We review your details and may contact you with questions. Approved buyers receive a buyer agreement to sign, then start receiving offers that match their profile.</p></details>
+          <details><summary>What does an offer include?</summary><p>The product category, grade, quantity and location, together with any resale conditions, such as the regions and channels where the goods may be sold.</p></details>
+          <details><summary>How is my information used?</summary><p>To review your application and to send you offers, and for nothing else. The details are in our <a href="privacy.html">Privacy Policy</a>.</p></details>
+        </div>
+      </div>
+    </section>
