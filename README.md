@@ -13,9 +13,10 @@ finished site. The finished site itself lives on the `trekstone` branch of this 
 | `build.py` | Puts pages, header and footer together and writes the site |
 | `icons.py`, `brand/` | The icon set: TREKSTONE's own logo, grade marks and pictograms, plus line icons from Lucide (ISC licence) |
 | `hexmap.py`, `gen/map.mjs`, `src/gen/world-hex.json` | The hexagon world map on the brand protection page (land shapes: Natural Earth) |
-| `recolor.py`, `assets2.py`, `images/` | The hero globe in black and forest green, made from TREKSTONE's own banner, and the forest photograph |
+| `recolor.py`, `assets2.py`, `images/` | The hero globe in black and forest green, made from TREKSTONE's own banner, the forest photograph, and the earth from orbit toned in forest green |
 | `share.py` | The link-preview image |
 | `sanity.py`, `interact.py`, `formtest.py`, `emu.py`, `notch.py`, `tops.py`, `shot.py`, `split.py`, `handover.py` | Checks and screenshots |
+| `earthshot.py` | The "Why now" band on the green earth: captures on both pages and a contrast measurement of every line against the picture |
 | `story.py`, `storymodes.py` | The home banner animation: frame-by-frame captures, and checks that it stays off on phones, with reduced motion, without JavaScript and in print |
 
 Pages are plain HTML with a few `{{tokens}}`: `{{ic:name}}` for an icon, `{{hx:name}}` and `{{bx:name}}` for an icon in a

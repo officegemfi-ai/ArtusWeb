@@ -20,7 +20,7 @@ with sync_playwright() as pw:
             Hh = p.evaluate('document.documentElement.scrollHeight')
             for y in range(0, Hh, 800): p.evaluate(f'scrollTo(0,{y})'); p.wait_for_timeout(40)
             r = p.evaluate("""() => { const de = document.documentElement;
-                const wide = [...document.querySelectorAll('body *')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.right > de.clientWidth + 1 && !e.closest('.hero__bg,.fhero__bg,.cta,.bhero,.hp,svg') }).slice(0, 4).map(e => (e.className && e.className.baseVal === undefined ? e.className : e.tagName) + ':' + Math.round(e.getBoundingClientRect().right));
+                const wide = [...document.querySelectorAll('body *')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.right > de.clientWidth + 1 && !e.closest('.hero__bg,.fhero__bg,.earth,.cta,.bhero,.hp,svg') }).slice(0, 4).map(e => (e.className && e.className.baseVal === undefined ? e.className : e.tagName) + ':' + Math.round(e.getBoundingClientRect().right));
                 const imgs = [...document.images].filter(i => i.complete && !i.naturalWidth && i.loading !== 'lazy').map(i => i.src.slice(-40));
                 const uses = [...document.querySelectorAll('use')].length;
                 const hidden = [...document.querySelectorAll('.rv:not(.in)')].length;

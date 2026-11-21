@@ -234,6 +234,17 @@ main{display:block}
 .reg p:last-child{font-size:15.5px;line-height:1.6;color:rgb(255 255 255 / 72%)}
 .note{margin-top:clamp(28px,3vw,40px);font-size:13.5px;color:var(--text-3)}
 .band--ink .note,.band--forest .note{color:rgb(255 255 255 / 56%)}
+/* the same band laid over the earth from orbit, in the site's greens: space above the text, the planet along the bottom */
+.band--earth{position:relative;isolation:isolate;overflow:hidden;--surface:#060A08;color:#fff;padding-bottom:calc(var(--sec) + clamp(48px,8vw,120px))}
+.earth{position:absolute;inset:0;z-index:-2}
+.earth img{width:100%;height:100%;object-fit:cover;object-position:60% 100%;transform-origin:100% 100%;transform:scale(1.16)}
+/* dark where the text sits, clearing toward the bottom so the planet shows under it */
+.band--earth::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgb(6 10 8 / 86%) 0%,rgb(6 10 8 / 70%) 38%,rgb(6 10 8 / 66%) 74%,rgb(6 10 8 / 24%) 100%)}
+.band--earth .eyebrow,.band--earth .reg__when{color:#A8D3BC}
+.band--earth .reg p:last-child{color:rgb(255 255 255 / 82%)}
+.band--earth .note{color:rgb(255 255 255 / 88%)}
+@media(prefers-reduced-motion:no-preference){.earth img{animation:orbit 70s var(--ease) infinite alternate}}
+@keyframes orbit{from{transform:scale(1.14)}to{transform:scale(1.22) translate3d(.6%,.5%,0)}}   /* grows from the bottom right corner, so no edge is ever uncovered */
 .regs--light{border-top-color:var(--ink)}
 .regs--light .reg+.reg{border-left-color:var(--line)}
 .regs--light .reg__when{color:var(--forest)}
