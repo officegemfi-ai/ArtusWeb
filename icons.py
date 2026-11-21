@@ -37,6 +37,15 @@ def favicon(logo_path):
     return 'data:image/svg+xml;base64,' + base64.b64encode(svg.encode()).decode(), svg
 
 
+def logo_pieces():
+    """The real logo, split into its own shapes: the four bands of the hexagon mark, then the nine letters (R and O keep their counters)."""
+    subs = re.findall(r'M[^M]*', open(os.path.join(HERE, 'brand/logo-path.txt'), encoding='utf-8').read().strip())
+    assert len(subs) == 15, len(subs)
+    mark = [subs[i] for i in (0, 1, 6, 7)]
+    letters = [''.join(subs[i] for i in grp) for grp in ([2], [3, 4], [5], [8], [9], [10], [11, 12], [13], [14])]
+    return mark, letters
+
+
 def build():
     out, boxes = [], {}
     logo = open(os.path.join(HERE, 'brand/logo-path.txt'), encoding='utf-8').read().strip()

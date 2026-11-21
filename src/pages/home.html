@@ -1,5 +1,10 @@
+    <div class="hs" data-heroscroll>
     <section class="hero on-dark" aria-labelledby="hero-title">
-      <picture class="hero__bg"><source media="(max-width: 640px)" srcset="assets/img/hero-globe-m.webp" type="image/webp" /><img src="assets/img/hero-globe-1920.webp" alt="" width="1920" height="980" decoding="async" fetchpriority="high" /></picture>
+      <div class="hero__light" aria-hidden="true"></div>
+      <div class="hero__bg" aria-hidden="true">
+        <picture><source media="(max-width: 640px)" srcset="assets/img/hero-globe-m.webp" type="image/webp" /><img src="assets/img/hero-globe-1920.webp" alt="" width="1920" height="980" decoding="async" fetchpriority="high" /></picture>
+        <div class="hero__shade"></div>
+      </div>
       <div class="wrap hero__in">
         <p class="eyebrow eyebrow--rule rv">Responsible inventory management</p>
         <h1 class="display rv" style="--d:1" id="hero-title">Excess inventory, under your control.</h1>
@@ -15,7 +20,16 @@
         <li>NFR marking and de-branding</li>
         <li>Chain of custody for every pair</li>
       </ul>
+      <!-- shown only while the banner folds on scroll (larger screens, motion allowed); a repeat of the text above for the eye, hidden from screen readers -->
+      <div class="hs__end" aria-hidden="true">
+        <p class="hs__l">Excess<br />inventory,</p>
+        <p class="hs__r">under your<br />control.</p>
+        <p class="hs__lead">TREKSTONE gives surplus footwear and apparel a controlled path back to market: vetted buyers under contract, geo-restricted channels, and documented proof of where every pair goes.</p>
+        <div class="hs__logo">{{herologo}}</div>
+        <p class="hs__tag">Excess inventory, under your control.</p>
+      </div>
     </section>
+    </div>
 
     <section class="band" aria-labelledby="doors-title">
       <div class="wrap">

@@ -96,6 +96,9 @@ def main():
     year = '2026'
     icon_uri, _ = icons.favicon(open(os.path.join(HERE, 'brand/logo-path.txt'), encoding='utf-8').read())
     region_map = hexmap_svg()
+    mark, letters = icons.logo_pieces()
+    hero_logo = ('<svg viewBox="0 0 3491.72 511.92" focusable="false">' + ''.join(f'<path class="hs__m" d="{d}"/>' for d in mark)
+                 + ''.join(f'<path class="hs__c" fill-rule="evenodd" d="{d}"/>' for d in letters) + '</svg>')
 
     def render(page, root='', inline_sprite=False, css_href=None, js_href=None):
         sp = '' if inline_sprite else root + 'assets/img/sprite.svg'
@@ -130,6 +133,7 @@ def main():
             t = re.sub(r'\{\{bx:([\w-]+)((?::[\w-]+)*)\}\}', lambda m: hx(m.group(1), mods(m), brand=True), t)
             t = re.sub(r'\{\{grade:([a-d])(?::(\w+))?\}\}', grade, t)
             t = re.sub(r'\{\{logo(:plain)?\}\}', logo, t)
+            t = t.replace('{{herologo}}', hero_logo)
             t = (t.replace('{{map}}', region_map).replace('{{countries}}', country_opts).replace('{{year}}', year).replace('{{login}}', LOGIN)
                  .replace('{{endpoint}}', ENDPOINT))
             return t

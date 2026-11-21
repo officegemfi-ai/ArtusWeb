@@ -16,6 +16,7 @@ finished site. The finished site itself lives on the `trekstone` branch of this 
 | `recolor.py`, `assets2.py`, `images/` | The hero globe in black and forest green, made from TREKSTONE's own banner, and the forest photograph |
 | `share.py` | The link-preview image |
 | `sanity.py`, `interact.py`, `formtest.py`, `emu.py`, `notch.py`, `tops.py`, `shot.py`, `split.py`, `handover.py` | Checks and screenshots |
+| `story.py`, `storymodes.py` | The home banner animation: frame-by-frame captures, and checks that it stays off on phones, with reduced motion, without JavaScript and in print |
 
 Pages are plain HTML with a few `{{tokens}}`: `{{ic:name}}` for an icon, `{{hx:name}}` and `{{bx:name}}` for an icon in a
 hexagon tile, `{{grade:a}}` for a grade mark, `{{logo}}`, `{{map}}`, `{{countries}}`, `{{login}}`.
@@ -33,6 +34,14 @@ TREKSTONE_SITE=../site python3 build.py --preview  # also writes a self-containe
 
 `TREKSTONE_SITE` is the folder the site is written into. The checks expect that folder served at
 `http://127.0.0.1:8815/` (`python3 -m http.server 8815 --bind 127.0.0.1`).
+
+## The home banner animation
+
+On larger screens the home banner is held in place while the visitor scrolls: it shrinks into a square frame with the headline
+split around it, then turns into the hexagon of the logo mark and the letters of the logo follow. The markup is at the top of
+`src/pages/home.html` (`.hs`), the styles are under "home: on scroll the banner folds" in `site.css`, and the script is the block
+with the same heading in `site.js`; its timings are the numbers in `apply()`. `{{herologo}}` writes the real logo as separate
+shapes (`icons.logo_pieces`) so that the mark and each letter can appear on their own.
 
 ## The forms
 
